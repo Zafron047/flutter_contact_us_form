@@ -32,6 +32,7 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final _messageController = TextEditingController();
 
@@ -81,6 +82,24 @@ class _ContactPageState extends State<ContactPage> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _subjectController,
+                    decoration: const InputDecoration(
+                      labelText: 'Subject',
+                      labelStyle: TextStyle(
+                          color: Color.fromARGB(220, 158, 158, 158),
+                          fontSize: 10),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Subject cannot be empty';
                       }
                       return null;
                     },
@@ -149,6 +168,7 @@ class _ContactPageState extends State<ContactPage> {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       final finishedForm = ContactFormHandler(
         name: _nameController.text,
+        subject: _subjectController.text,
         email: _emailController.text,
         message: _messageController.text,
       );
@@ -157,6 +177,7 @@ class _ContactPageState extends State<ContactPage> {
 
       _formKey.currentState!.reset();
       _nameController.clear();
+      _subjectController.clear();
       _emailController.clear();
       _messageController.clear();
     } else {
