@@ -6,10 +6,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
         useMaterial3: true,
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(color: Colors.white),
+        ),
       ),
       home: const ContactPage(title: 'Flutter Contact Form Page'),
     );
@@ -33,25 +37,25 @@ class _ContactPageState extends State<ContactPage> {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text("Contact Us",
                 style: TextStyle(
                   color: Color(Colors.blueGrey.value),
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
-                  wordSpacing: 1.5,
-                  height: 1.5,
+                  letterSpacing: 1,
+                  wordSpacing: 1,
+                  height: 2,
                   // decoration: TextDecoration.underline
                 )),
             Container(
               height: 3,
               color: Colors.blueGrey,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Enter Name',
