@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'package:contact_form/data/services/email_services.dart';
 import 'package:http/http.dart' as http;
 
-class FeedbackMail implements EmailServices{
-
+class FeedbackMail implements EmailServices {
   @override
-   Future<void> sendEmail({
+  Future<void> sendEmail({
     required String name,
     required String userMail,
     required String subject,

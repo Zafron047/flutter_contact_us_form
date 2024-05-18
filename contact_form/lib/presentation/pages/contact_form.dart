@@ -1,6 +1,5 @@
 
 import 'package:contact_form/domain/entities/contact_form_handler.dart';
-// import 'package:contact_form/domain/entities/contact_form_handler.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -48,7 +47,6 @@ class _ContactPageState extends State<ContactPage> {
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 0),
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text("Contact Us",
                 style: TextStyle(
@@ -58,7 +56,6 @@ class _ContactPageState extends State<ContactPage> {
                   letterSpacing: 1,
                   wordSpacing: 1,
                   height: 2,
-                  // decoration: TextDecoration.underline
                 )),
             Container(
               height: 3,
@@ -103,8 +100,6 @@ class _ContactPageState extends State<ContactPage> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
                       }
-
-                      // Email validation
                       final emailRegex =
                           RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (!emailRegex.hasMatch(value)) {
@@ -177,7 +172,6 @@ class _ContactPageState extends State<ContactPage> {
       try {
         contactFormHandler.submitForm();
         print('Email sent successfully from contact_form.dart');
-        // Reset form and clear controllers if needed
       } catch (e) {
         print('Failed to send email. from contact_form.dart');
       }
