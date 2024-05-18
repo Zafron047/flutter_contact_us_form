@@ -1,20 +1,27 @@
+// import 'package:contact_form/data/services/email_service.dart';
+import 'package:contact_form/data/services/feedback_mail.dart';
 import 'package:contact_form/domain/entities/abstract_form.dart';
 
 class ContactFormHandler implements AbstractForm {
   final String name;
-  final String email;
+  final String userMail;
   final String subject;
-  final String message;
+  final String mailBody;
 
   ContactFormHandler({
     required this.name,
     required this.subject,
-    required this.email,
-    required this.message, 
+    required this.userMail,
+    required this.mailBody,
   });
 
   @override
-  String submitForm() {
-    return 'Name: $name, subject: $subject, Email: $email, Message: $message';
+  void submitForm() {
+    FeedbackMail().sendEmail(
+      name: name,
+      userMail: userMail,
+      subject: subject,
+      mailBody: mailBody,
+    );
   }
 }

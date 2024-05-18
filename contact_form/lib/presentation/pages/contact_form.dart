@@ -1,4 +1,6 @@
+
 import 'package:contact_form/domain/entities/contact_form_handler.dart';
+// import 'package:contact_form/domain/entities/contact_form_handler.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -34,7 +36,7 @@ class _ContactPageState extends State<ContactPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final _messageController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -88,24 +90,6 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
-                    controller: _subjectController,
-                    decoration: const InputDecoration(
-                      labelText: 'Subject',
-                      labelStyle: TextStyle(
-                          color: Color.fromARGB(220, 158, 158, 158),
-                          fontSize: 10),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Subject cannot be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
                       labelText: 'Enter Email',
@@ -125,6 +109,24 @@ class _ContactPageState extends State<ContactPage> {
                           RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (!emailRegex.hasMatch(value)) {
                         return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _subjectController,
+                    decoration: const InputDecoration(
+                      labelText: 'Subject',
+                      labelStyle: TextStyle(
+                          color: Color.fromARGB(220, 158, 158, 158),
+                          fontSize: 10),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Subject cannot be empty';
                       }
                       return null;
                     },
@@ -164,22 +166,21 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  void _sendMail() {
+  void _sendMail() async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      final finishedForm = ContactFormHandler(
+      final contactFormHandler = ContactFormHandler(
         name: _nameController.text,
+        userMail: _emailController.text,
         subject: _subjectController.text,
-        email: _emailController.text,
-        message: _messageController.text,
+        mailBody: _messageController.text,
       );
-      final submitForm = finishedForm.submitForm();
-      print(submitForm);
-
-      _formKey.currentState!.reset();
-      _nameController.clear();
-      _subjectController.clear();
-      _emailController.clear();
-      _messageController.clear();
+      try {
+        contactFormHandler.submitForm();
+        print('Email sent successfully from contact_form.dart');
+        // Reset form and clear controllers if needed
+      } catch (e) {
+        print('Failed to send email. from contact_form.dart');
+      }
     } else {
       print('Form validation failed. Cannot send mail.');
     }
